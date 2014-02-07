@@ -42,12 +42,11 @@
 			$query = "SELECT * FROM tickets WHERE code = '" . $code . "' LIMIT 1";
 			$result = mysql_query($query);
 	
-			$firstname = "";
 			while ($row = mysql_fetch_object($result)) {
-				$firstname = $row -> firstname;
+				$used = $row -> used;
 			}
 			
-			if ($firstname != "") {
+			if (isset($used) && $used == FALSE) {
 				// Code is correct
 				echo '
 		<script type="text/javascript">
@@ -55,8 +54,15 @@
 			new QRCode(document.getElementById("qrcode"), getParam("code"));
 		</script>
 				';
-					} else {
-				// Code is wrong
+			} elseif (isset($used) && $used == TRUE) {
+				// Code has been used before
+				echo '
+		<script type="text/javascript">
+			document.getElementById("qrcode").innerHTML = "Dieser Code wurde bereits verwendet!";
+		</script>
+				';
+			} else {
+				// Code is wrong	
 				echo '
 		<script type="text/javascript">
 			document.getElementById("qrcode").innerHTML = "Dein Code konnte nicht in der Datenbank gefunden werden. Bitte überprüfe deine Eingaben. Wenn du glaubst, dass hier ein Fehler vorliegt, melde dich bitte beim Veranstalter.";
