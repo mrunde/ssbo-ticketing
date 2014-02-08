@@ -1,5 +1,10 @@
 <?php
 	session_start();
+	
+	// Test login to set codes to used
+	if (isset($_POST['user']) && $_POST['user'] == "user" && isset($_POST['pass']) && $_POST['pass'] == "pass") {
+		$_SESSION['logged_ind'] = TRUE;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -64,6 +69,12 @@
 			}
 			
 			if (isset($used) && $used == FALSE) {
+				if (isset($_SESSION['logged_in'])) {
+					// Update the code from unused to used
+					$query_update = "UPDATE tickets SET used = true WHERE code = '" . $code . "'";
+					mysql_query($query_update);
+				}
+				
 				// Code is correct
 				echo '
 		<script type="text/javascript">
