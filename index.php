@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="de">
 	<head>
@@ -24,6 +27,20 @@
 		<header>
 			<h1>SSBO Ticketing</h1>
 		</header>
+		
+		<div id="demo">
+			<ul>
+				<li>
+					<a href="?code=1911332118324935400">Unused code</a>
+				</li>
+				<li>
+					<a href="?code=9751755374018103000">Used code</a>
+				</li>
+				<li>
+					<a href="?code=12345">Wrong code</a>
+				</li>
+			</ul>
+		</div>
 
 		<div id="qrcode">
 			<!-- QRCode will be placed here, if the code is valid. If not a message will be prompted to the user. -->
@@ -51,7 +68,15 @@
 				echo '
 		<script type="text/javascript">
 			// Create the QRCode
-			new QRCode(document.getElementById("qrcode"), getParam("code"));
+			// new QRCode(document.getElementById("qrcode"), getParam("code"));
+			new QRCode(document.getElementById("qrcode"), {
+				text: getParam("code"),
+				width: 256,
+				height: 256,
+				colorDark : "#0000ff",
+				colorLight : "#ffffff",
+				correctLevel : QRCode.CorrectLevel.H
+			})
 		</script>
 				';
 			} elseif (isset($used) && $used == TRUE) {
