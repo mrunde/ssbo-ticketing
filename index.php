@@ -3,7 +3,12 @@
 	
 	// Test login to set codes to used
 	if (isset($_POST['user']) && $_POST['user'] == "user" && isset($_POST['pass']) && $_POST['pass'] == "pass") {
-		$_SESSION['logged_ind'] = TRUE;
+		$_SESSION['logged_in'] = TRUE;
+	}
+	
+	// Logout
+	if (isset($_POST['logout'])) {
+		$_SESSION['logged_in'] = FALSE;
 	}
 ?>
 <!DOCTYPE html>
@@ -50,13 +55,21 @@
 			</ul>
 		</div>
 		
-		<div style="position: relative; left: 0; top: 0;">
+		<div id="main">
 			<div id="ticket">
 				<!-- Ticket will be placed here, if the code is valid. -->
 			</div>
 			<div id="qrcode">
 				<!-- QRCode will be placed here, if the code is valid. -->
 			</div>
+			<div id="numeric_code">
+				<!-- Numeric code will be placed here, if the code is valid. -->
+			</div>
+			<div id="error">
+				<!-- Error messages will be displayed here, if the code is wrong. -->
+			</div>
+			
+			
 		</div>
 		
 		<?php
@@ -81,32 +94,42 @@
 					}
 					
 					if (isset($used) && $used == FALSE) {
-						if (isset($_SESSION['logged_in'])) {
+						if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == TRUE) {
 							// Update the code from unused to used
 							$query_update = "UPDATE tickets SET used = true WHERE code = '" . $code . "'";
 							mysql_query($query_update);
-						}
-						
-						// Code is correct
-						echo '
+							
+							// Code is correct
+							echo '
 				<script type="text/javascript">
-					// Create the QRCode
-					document.getElementById("ticket").innerHTML = "<img src=\"img/ticket.png\" />";
-					new QRCode(document.getElementById("qrcode"), {
-						text: getParam("code"),
-						width: 256,
-						height: 256,
-						colorDark : "#0000ff",
-						colorLight : "#ffffff",
-						correctLevel : QRCode.CorrectLevel.H
-					})
+					document.getElementById("qrcode").innerHTML = "<img src=\"img/ok.png\" /><br/>";
 				</script>
 						';
+						} else {
+							// Code is correct
+							echo '
+					<script type="text/javascript">
+						// Create the QRCode
+						document.getElementById("ticket").innerHTML = "<img src=\"img/ticket.png\" />";
+						new QRCode(document.getElementById("qrcode"), {
+							text: getParam("code"),
+							// text: document.URL,
+							width: 256,
+							height: 256,
+							colorDark : "#0000ff",
+							colorLight : "#ffffff",
+							correctLevel : QRCode.CorrectLevel.L
+						})
+						document.getElementById("numeric_code").innerHTML = getParam("code");
+					</script>
+							';
+						}
+						
 					} elseif (isset($used) && $used == TRUE) {
 						// Code has been used before
 						echo '
 				<script type="text/javascript">
-					document.getElementById("qrcode").innerHTML = "<img src=\"img/not_ok.png\" /><br/>" +
+					document.getElementById("error").innerHTML = "<img src=\"img/not_ok.png\" /><br/>" +
 						"<h3>Dieser Code wurde bereits verwendet!</h3>";
 				</script>
 						';
@@ -114,7 +137,7 @@
 						// Code is wrong	
 						echo '
 				<script type="text/javascript">
-					document.getElementById("qrcode").innerHTML = "<img src=\"img/fake.png\" /><br/>" +
+					document.getElementById("error").innerHTML = "<img src=\"img/fake.png\" /><br/>" +
 						"<h3>Dein Code konnte nicht in der Datenbank gefunden werden.<br/>" +
 						"Bitte überprüfe deine Eingaben.<br/>" +
 						"Wenn du glaubst, dass hier ein Fehler vorliegt, melde dich bitte beim Veranstalter.</h3>";
@@ -135,6 +158,18 @@
 
 		<footer>
 			<p>
+				<?php
+					if (isset($_SESSION['logged_in'])) {
+						if ($_SESSION['logged_in'] == TRUE) {
+							echo '<form name="logout_form" href="index.php" method="post">
+								<input name="logout" type="text" value="TRUE" hidden />
+								<button type="submit">Logout</button>
+							</form>';
+						} else {
+							echo 'Du bist nicht angemeldet. Klicke <a href="control.php">hier</a>, um dich anzumelden.<br/>';
+						}
+					}
+				?>
 				&copy; Copyright 2014 by Marius Runde
 			</p>
 		</footer>

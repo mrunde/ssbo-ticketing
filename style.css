@@ -2,14 +2,27 @@ body {
 	width: 100%;
 }
 
-#ticket {
+#main, #ticket {
+	height: 600px;
 	position: relative;
 	top: 0;
 	left: 0;
 }
 
-#qrcode {
+#qrcode, #error {
 	position: absolute;
 	top: 30px;
 	left: 70px;
+}
+
+#numeric_code {
+	height: auto;
+	width: 200px;
+	position: absolute;
+	bottom: 0px;
+	left: 280px;
+	background-color: white;
+	text-align: center;
+	font: "Courier New", Courier, monospace;
+	font-size: 20px;
 }
