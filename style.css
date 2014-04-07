@@ -1,0 +1,15 @@
+body {
+	width: 100%;
+}
+
+#ticket {
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+#qrcode {
+	position: absolute;
+	top: 30px;
+	left: 70px;
+}
