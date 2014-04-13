@@ -1,0 +1,42 @@
+\documentclass[12pt,a4paper,final,twoside,onecolumn,titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\author{Marius Runde}
+\title{SSBO-Ticketing}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Einrichtung der Datenbank}
+
+Um die Datenbank einzurichten, muss folgender Code im SQL-Editor eingegeben werden:\\\\
+\texttt{\hspace*{10mm}CREATE DATABASE ssbo\_ticketing;}\\\\
+Danach muss die notwendige Tabelle erstellt werden:\\\\
+\texttt{\hspace*{10mm}CREATE TABLE IF NOT EXISTS tickets (\\
+	\hspace*{20mm}code		BIGINT UNSIGNED NOT NULL AUTO\_INCREMENT,\\
+	\hspace*{20mm}firstname	VARCHAR(50) NOT NULL,\\
+	\hspace*{20mm}lastname	VARCHAR(50) NOT NULL,\\
+	\hspace*{20mm}street		VARCHAR(50) NOT NULL,\\
+	\hspace*{20mm}housenumber	VARCHAR(5) NOT NULL,\\
+	\hspace*{20mm}postalcode	INT(5) UNSIGNED NOT NULL,\\
+	\hspace*{20mm}town		VARCHAR(50) NOT NULL,\\
+	\hspace*{20mm}date		TIMESTAMP NOT NULL,\\
+	\hspace*{20mm}used		BOOLEAN NOT NULL DEFAULT false,\\
+	\hspace*{20mm}PRIMARY KEY (code)\\
+\hspace*{10mm});}
+
+\section{Einbinden in die Website}
+
+Um das SSBO-Ticketing-System in die Website einzubinden, müssen die Dateien \texttt{index.php}, \texttt{control.php}, \texttt{db\_info.php}, \texttt{new.php} und \texttt{style.css} sowie die Verzeichnisse \texttt{img}, \texttt{js} und \texttt{lib} in das Verzeichnis im Webspace kopiert werden, über welchen Pfad später die Tickets gebucht werden sollen können.
+
+In der \texttt{db\_info.php} müssen die Zugangsdaten für die Datenbank eingetragen werden.
+
+\section{Hinzufügen eines neuen Tickets zur Datenbank}
+
+Neue Tickets lassen sich mit der Datei \texttt{new.php} in der Datenbank eintragen.
+
+\end{document}

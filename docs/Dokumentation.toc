@@ -1,0 +1,4 @@
+\select@language {german}
+\contentsline {section}{\numberline {1}Einrichtung der Datenbank}{2}
+\contentsline {section}{\numberline {2}Einbinden in die Website}{2}
+\contentsline {section}{\numberline {3}Hinzuf\IeC {\"u}gen eines neuen Tickets zur Datenbank}{2}
