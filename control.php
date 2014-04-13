@@ -23,7 +23,7 @@
 		</header>
 		
 		<form name="control_form" action="index.php" method="post">
-			<input name="user" type="text" value="" placeholder="Nutzername eingeben..." /><br/>
+			<input name="user" type="text" value="" placeholder="Nutzername eingeben..." autofocus /><br/>
 			<input name="pass" type="password" value="" placeholder="Passwort eingeben..." /><br/>
 			<button type="submit">Anmelden</button>
 		</form>
