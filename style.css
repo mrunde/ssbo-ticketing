@@ -26,3 +26,8 @@ body {
 	font: "Courier New", Courier, monospace;
 	font-size: 20px;
 }
+
+.error {
+	color: #FF0000;
+	font-size: 20px;
+}
