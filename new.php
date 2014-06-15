@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="de">
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="iso-8859-1" />
 
 		<title>SSBO Ticketing - Neues Ticket</title>
 		<meta name="description" content="SSBO Ticketing System Neues Ticket" />
@@ -42,29 +42,31 @@
 					mysql_select_db($db_database) or die('Die Datenbank existiert nicht.');
 			
 					// Select the row with the correct code
-					$query = "SELECT code FROM tickets";
+					$query = "SELECT * FROM tickets";
 					$result = mysql_query($query);
 					
 					$checked = false;
 					while ($row = mysql_fetch_object($result)) {
-						$temp_code = $row -> code;
-						if ($code == md5($temp_code)) {
+						if (htmlentities($code, ENT_COMPAT, "iso-8859-1") == $row -> code) {
 							$checked = true;
+							$firstname = $row -> firstname;
+							$email = $row -> email;
+							$payed = $row -> payed;
 							break;
 						}
 					}
 					
-					// Create a new ticket if the code is correct by updating the code from used to unused
+					// Create a new ticket if the code is correct by updating the code from not payed to payed
 					if ($checked == TRUE) {
-						if ($row -> used == TRUE) {
-							$query_update = "UPDATE tickets SET used = false WHERE code = '" . $temp_code . "'";
+						if ($payed == FALSE) {
+							$query_update = "UPDATE tickets SET payed = true WHERE code = '" . htmlentities($code, ENT_COMPAT, "iso-8859-1") . "'";
 							mysql_query($query_update);
 							
 							echo '<script type="text/javascript">
 								document.getElementById("result").innerHTML = "<h3>Das Ticket wurde erfolgreich erstellt.</h3>" +
-								"Bitte schicke ' . $row -> firstname . ' eine <a href=\"mailto:' . $row -> email . '\" alt=\"E-Mail an ' . $row -> firstname . ' schicken.\">E-Mail</a> mit der Ticketnummer.<br/>" +
+								"Bitte schicke ' . $firstname . ' eine <a href=\"mailto:' . $email . '\" alt=\"E-Mail an ' . $firstname . ' schicken.\">E-Mail</a> mit der Ticketnummer.<br/>" +
 								"<br/>" +
-								"Ticketnummer:     <b>' . $temp_code . '</b><hr/>";
+								"Ticketnummer:     <b>' . $code . '</b><hr/>";
 							</script>';
 						} else {
 							echo '<script type="text/javascript">
@@ -73,7 +75,7 @@
 						}
 					} else {
 						echo '<script type="text/javascript">
-							document.getElementById("result").innerHTML = "<p class=\"error\">Der Bestellungscode konnte leider nicht gefunden werden. Bitte überprüfe noch einmal alle Angaben und setze dich ggf. mit dem Administrator der Website in Kontakt.</p><hr/>";
+							document.getElementById("result").innerHTML = "<p class=\"error\">Der Bestellungscode konnte leider nicht gefunden werden. Bitte &uuml;berpr&uuml;fe noch einmal alle Angaben und setze dich ggf. mit dem Administrator der Website in Kontakt.</p><hr/>";
 						</script>';
 					}
 					
@@ -88,7 +90,7 @@
 		Der Bestellungscode sollte als Verwendungszweck bei der Überweisung angegeben werden.<br/>
 		<br/>
 		<form name="new_form" action="#" method="post">
-			<input name="ordercode" type="text" value="" placeholder="Code eingeben..." size="20" autofocus /><br/>
+			<input name="ordercode" type="text" value="" placeholder="Code eingeben..." size="27" autofocus /><br/>
 			<button type="submit">Ticket erstellen</button>
 		</form>
 		

@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html lang="de">
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="iso-8859-1" />
 
 		<title>SSBO Ticketing</title>
 		<meta name="description" content="SSBO Ticketing System" />
@@ -37,24 +37,6 @@
 	</head>
 
 	<body>
-		<header>
-			<h1>SSBO Ticketing</h1>
-		</header>
-		
-		<div id="demo">
-			<ul>
-				<li>
-					<a href="?code=1911332118324935400">Unused code</a>
-				</li>
-				<li>
-					<a href="?code=9751755374018103000">Used code</a>
-				</li>
-				<li>
-					<a href="?code=12345">Wrong code</a>
-				</li>
-			</ul>
-		</div>
-		
 		<div id="main">
 			<div id="ticket">
 				<!-- Ticket will be placed here, if the code is valid. -->
@@ -62,14 +44,15 @@
 			<div id="qrcode">
 				<!-- QRCode will be placed here, if the code is valid. -->
 			</div>
+			<div id="copyright">
+				&copy; Copyright 2014 by SSBO Festival and Marius Runde
+			</div>
 			<div id="numeric_code">
 				<!-- Numeric code will be placed here, if the code is valid. -->
 			</div>
 			<div id="error">
 				<!-- Error messages will be displayed here, if the code is wrong. -->
 			</div>
-			
-			
 		</div>
 		
 		<?php
@@ -116,7 +99,7 @@
 							// text: document.URL,
 							width: 256,
 							height: 256,
-							colorDark : "#0000ff",
+							colorDark : "#000000",
 							colorLight : "#ffffff",
 							correctLevel : QRCode.CorrectLevel.L
 						})
@@ -139,7 +122,7 @@
 				<script type="text/javascript">
 					document.getElementById("error").innerHTML = "<img src=\"img/fake.png\" /><br/>" +
 						"<h3>Dein Code konnte nicht in der Datenbank gefunden werden.<br/>" +
-						"Bitte überprüfe deine Eingaben.<br/>" +
+						"Bitte &uuml;berpr&uuml;fe deine Eingaben.<br/>" +
 						"Wenn du glaubst, dass hier ein Fehler vorliegt, melde dich bitte beim Veranstalter.</h3>";
 				</script>
 						';
@@ -166,11 +149,10 @@
 								<button type="submit">Logout</button>
 							</form>';
 						} else {
-							echo 'Du bist nicht angemeldet. Klicke <a href="control.php">hier</a>, um dich anzumelden.<br/>';
+							echo 'Du bist nicht angemeldet. Klicke <a href="control.php">hier</a>, um dich anzumelden. (Anmeldung nur f&uuml;r Administratoren)<br/>';
 						}
 					}
 				?>
-				&copy; Copyright 2014 by Marius Runde
 			</p>
 		</footer>
 	</body>

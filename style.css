@@ -3,24 +3,44 @@ body {
 }
 
 #main, #ticket {
-	height: 600px;
+	height: 761px;
+	width: 678px;
 	position: relative;
 	top: 0;
 	left: 0;
 }
 
-#qrcode, #error {
+#qrcode {
 	position: absolute;
-	top: 30px;
-	left: 70px;
+	top: 475px;
+	right: 50px;
 }
 
-#numeric_code {
+#error {
+	width: 450px;
+	position: absolute;
+	top: 50px;
+	right: 50px;
+}
+
+#copyright {
 	height: auto;
 	width: 200px;
 	position: absolute;
 	bottom: 0px;
-	left: 280px;
+	left: 0px;
+	background-color: white;
+	text-align: center;
+	font: "Corier New", Courier, monospace;
+	font-size: 20px;
+}
+
+#numeric_code {
+	height: auto;
+	width: 306px;
+	position: absolute;
+	bottom: 0px;
+	right: 25px;
 	background-color: white;
 	text-align: center;
 	font: "Courier New", Courier, monospace;
