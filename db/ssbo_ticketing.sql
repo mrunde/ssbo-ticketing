@@ -1,5 +1,9 @@
+CREATE DATABASE `ssbo_ticketing` CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+USE ssbo_ticketing;
+
 CREATE TABLE IF NOT EXISTS tickets (
-	code		BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	code		VARCHAR(27) NOT NULL,
 	firstname	VARCHAR(50) NOT NULL,
 	lastname	VARCHAR(50) NOT NULL,
 	street		VARCHAR(50) NOT NULL,
@@ -8,6 +12,7 @@ CREATE TABLE IF NOT EXISTS tickets (
 	town		VARCHAR(50) NOT NULL,
 	email		VARCHAR(50) NOT NULL,
 	date		TIMESTAMP NOT NULL,
+	payed		BOOLEAN NOT NULL DEFAULT false,
 	used		BOOLEAN NOT NULL DEFAULT false,
 	PRIMARY KEY (code)
 );
