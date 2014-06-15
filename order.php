@@ -38,8 +38,18 @@ session_start();
 				$date = date('Y-m-d_H:i:s');
 				$code = $date . "_" . substr($_POST['firstname'], 0, 1) . substr($_POST['lastname'], 0, 2) . "_" . rand(100, 999);
 
+				// Prevent SQL injections
+				$code = mysql_escape_string(htmlentities($code, ENT_COMPAT, "iso-8859-1"));
+				$firstname = mysql_escape_string(htmlentities($_POST['firstname'], ENT_COMPAT, "iso-8859-1"));
+				$lastname = mysql_escape_string(htmlentities($_POST['lastname'], ENT_COMPAT, "iso-8859-1"));
+				$street = mysql_escape_string(htmlentities($_POST['street'], ENT_COMPAT, "iso-8859-1"));
+				$housenumber = mysql_escape_string(htmlentities($_POST['housenumber'], ENT_COMPAT, "iso-8859-1"));
+				$postalcode = mysql_escape_string(htmlentities($_POST['postalcode'], ENT_COMPAT, "iso-8859-1"));
+				$town = mysql_escape_string(htmlentities($_POST['town'], ENT_COMPAT, "iso-8859-1"));
+				$email = mysql_escape_string(htmlentities($_POST['email'], ENT_COMPAT, "iso-8859-1"));
+
 				// Insert a new order
-				$query_insert = "INSERT INTO tickets (code, firstname, lastname, street, housenumber, postalcode, town, email, date) VALUES ('" . htmlentities($code, ENT_COMPAT, "iso-8859-1") . "', '" . htmlentities($_POST['firstname'], ENT_COMPAT, "iso-8859-1") . "', '" . htmlentities($_POST['lastname'], ENT_COMPAT, "iso-8859-1") . "', '" . htmlentities($_POST['street'], ENT_COMPAT, "iso-8859-1") . "', '" . htmlentities($_POST['housenumber'], ENT_COMPAT, "iso-8859-1") . "', " . htmlentities($_POST['postalcode'], ENT_COMPAT, "iso-8859-1") . ", '" . htmlentities($_POST['town'], ENT_COMPAT, "iso-8859-1") . "', '" . htmlentities($_POST['email'], ENT_COMPAT, "iso-8859-1") . "', '" . htmlentities($date, ENT_COMPAT, "iso-8859-1") . "')";
+				$query_insert = "INSERT INTO tickets (code, firstname, lastname, street, housenumber, postalcode, town, email, date) VALUES ('" . $code . "', '" . $firstname . "', '" . $lastname . "', '" . $street . "', '" . $housenumber . "', " . $postalcode . ", '" . $town . "', '" . $email . "', '" . $date . "')";
 				$result_insert = mysql_query($query_insert);
 
 				echo '<script type="text/javascript">

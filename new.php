@@ -59,7 +59,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != TRUE) {
 				// Create a new ticket if the code is correct by updating the code from not payed to payed
 				if ($checked == TRUE) {
 					if ($payed == FALSE) {
-						$query_update = "UPDATE tickets SET payed = true WHERE code = '" . htmlentities($code, ENT_COMPAT, "iso-8859-1") . "'";
+						$query_update = "UPDATE tickets SET payed = true WHERE code = '" . mysql_escape_string(htmlentities($code, ENT_COMPAT, "iso-8859-1")) . "'";
 						mysql_query($query_update);
 
 						echo '<script type="text/javascript">
