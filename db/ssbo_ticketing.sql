@@ -1,6 +1,8 @@
 CREATE DATABASE `ssbo_ticketing` CHARACTER SET utf8 COLLATE utf8_general_ci;
-
 USE ssbo_ticketing;
+
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT, INSERT, UPDATE ON `ssbo_ticketing`.* TO 'admin'@'localhost';
 
 CREATE TABLE IF NOT EXISTS tickets (
 	code		VARCHAR(27) NOT NULL,
