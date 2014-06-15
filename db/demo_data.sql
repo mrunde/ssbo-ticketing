@@ -1,5 +1,5 @@
 INSERT INTO `ssbo_ticketing`.`tickets`
-(`code`, `firstname`, `lastname`, `street`, `housenumber`, `postalcode`, `town`, `date`)
+(`code`, `firstname`, `lastname`, `street`, `housenumber`, `postalcode`, `town`, `email`, `date`)
 VALUES
-('1911332118324935400', 'Max', 'Mustermann', 'Musterstraße', '1a', '12345', 'Musterdorf', '2014-02-07 16:02:41', '0'),
-('9751755374018103000', 'Erika', 'Mustermann', 'Musterweg', '9', '54321', 'Musterstadt', '2014-02-07 16:31:00', '1');
+('2014-06-15_16:22:00_JZo_123', 'John', 'Zoidberg', 'Zukunftsstraße', '1a', '12345', 'Neu-New-York', 'wuwuwu@wu.wu', '2014-06-15 16:22:00'),
+('2014-06-15_16:23:15_MMu_999', 'Max', 'Mustermann', 'Musterweg', '9', '54321', 'Musterstadt', 'max_mustermann@muster.de', '2014-06-15 16:23:15');
