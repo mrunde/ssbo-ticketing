@@ -5,7 +5,7 @@ CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';
 GRANT SELECT, INSERT, UPDATE ON `ssbo_ticketing`.* TO 'admin'@'localhost';
 
 CREATE TABLE IF NOT EXISTS tickets (
-	code		VARCHAR(27) NOT NULL,
+	code		VARCHAR(50) NOT NULL,
 	firstname	VARCHAR(50) NOT NULL,
 	lastname	VARCHAR(50) NOT NULL,
 	street		VARCHAR(50) NOT NULL,
