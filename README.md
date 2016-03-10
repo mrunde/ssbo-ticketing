@@ -13,3 +13,5 @@ English version:
 Online ticketing system for the [SSBO Festival 2014](http://www.ssbo-festival.de/)
 
 The tickets contain a QRCode which is created by the [QRCode.js](https://github.com/davidshimjs/qrcodejs) library and certifies the validity of the ticket.
+
+![Screenshot](img/SSBO.png)
